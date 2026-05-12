@@ -10,8 +10,7 @@ const ProjectManager = ({ token }) => {
     description: '',
     category: '',
     imageUrl: '',
-    liveLink: '',
-    githubLink: '',
+    link: '',
     techStack: '',
     highlights: '',
   });
@@ -61,8 +60,7 @@ const ProjectManager = ({ token }) => {
       description: '',
       category: '',
       imageUrl: '',
-      liveLink: '',
-      githubLink: '',
+      link: '',
       techStack: '',
       highlights: '',
     });
@@ -167,7 +165,7 @@ const ProjectManager = ({ token }) => {
             <textarea rows="2" placeholder="Implemented X, Optimized Y" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.highlights} onChange={(e) => setCurrentProject({...currentProject, highlights: e.target.value})}></textarea>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">Image Upload (Cloudinary)</label>
               <input type="file" accept="image/*" onChange={uploadFileHandler} className="w-full bg-black border border-gray-700 rounded px-3 py-1.5 text-white focus:border-primary outline-none" />
@@ -175,12 +173,8 @@ const ProjectManager = ({ token }) => {
               {currentProject.imageUrl && !uploading && <p className="text-xs text-success mt-1 truncate">Image Uploaded Successfully</p>}
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Live Link</label>
-              <input type="text" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.liveLink} onChange={(e) => setCurrentProject({...currentProject, liveLink: e.target.value})} />
-            </div>
-            <div>
-              <label className="block text-sm text-gray-400 mb-1">GitHub Link</label>
-              <input type="text" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.githubLink} onChange={(e) => setCurrentProject({...currentProject, githubLink: e.target.value})} />
+              <label className="block text-sm text-gray-400 mb-1">Project Link</label>
+              <input type="text" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.link} onChange={(e) => setCurrentProject({...currentProject, link: e.target.value})} />
             </div>
           </div>
 

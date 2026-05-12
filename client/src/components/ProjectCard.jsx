@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => {
   return (
@@ -54,24 +53,14 @@ const ProjectCard = ({ project }) => {
         </div>
         
         <div className="flex space-x-4 mt-auto">
-          {project.githubLink && (
+          {project.link && (
             <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              <FaGithub className="w-4 h-4 mr-1" /> Code
-            </a>
-          )}
-          {project.liveLink && (
-            <a
-              href={project.liveLink}
+              href={project.link}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center text-sm text-primary hover:text-blue-400 transition-colors"
             >
-              <ExternalLink className="w-4 h-4 mr-1" /> Live Demo
+              <ExternalLink className="w-4 h-4 mr-1" /> View Project
             </a>
           )}
         </div>

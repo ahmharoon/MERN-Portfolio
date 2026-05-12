@@ -21,10 +21,7 @@ const projectSchema = mongoose.Schema(
     imageUrl: {
       type: String,
     },
-    liveLink: {
-      type: String,
-    },
-    githubLink: {
+    link: {
       type: String,
     },
     highlights: [

@@ -13,8 +13,7 @@ const dummyProjects = [
     category: 'Final Year Project',
     techStack: ['Node.js', 'React', 'Gemini API', 'MongoDB'],
     highlights: ['Integrated Aviationstack API', 'Implemented rate-limiting for cost control'],
-    githubLink: '#',
-    liveLink: '#'
+    link: 'https://github.com/ahmharoon/FlyEz'
   },
   {
     title: 'Bookagame',
@@ -22,8 +21,7 @@ const dummyProjects = [
     category: 'Startup',
     techStack: ['Node.js', 'Express', 'MongoDB', 'React'],
     highlights: ['Node.js backend logic for court availability', 'Dynamic commission calculations'],
-    githubLink: '#',
-    liveLink: '#'
+    link: 'https://bookagame.net'
   },
   {
     title: 'Blissful Adornments',
@@ -31,8 +29,7 @@ const dummyProjects = [
     category: 'E-commerce',
     techStack: ['React', 'Redux', 'Node.js', 'Stripe'],
     highlights: ['Complex state management using Redux/Context API', 'Secure payment integration', 'User authentication'],
-    githubLink: '#',
-    liveLink: '#'
+    link: 'https://github.com/ahmharoon/Blissful-Adornments'
   },
   {
     title: 'Chess Application',
@@ -40,8 +37,7 @@ const dummyProjects = [
     category: 'Gaming',
     techStack: ['React', 'Socket.io', 'Node.js', 'chess.js'],
     highlights: ['Complex game logic and move validation', 'Real-time state management'],
-    githubLink: '#',
-    liveLink: '#'
+    link: 'https://github.com/ahmharoon/chess'
   },
   {
     title: 'Chatting Application',
@@ -49,8 +45,7 @@ const dummyProjects = [
     category: 'Communication',
     techStack: ['React', 'Socket.io', 'MongoDB'],
     highlights: ['Real-time bidirectional communication using Socket.io', 'Message persistence in MongoDB'],
-    githubLink: '#',
-    liveLink: '#'
+    link: 'https://github.com/ahmharoon/chattu'
   }
 ];
 

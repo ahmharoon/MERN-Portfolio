@@ -55,8 +55,7 @@ const updateProject = async (req, res) => {
       project.techStack = req.body.techStack || project.techStack;
       project.category = req.body.category || project.category;
       project.imageUrl = req.body.imageUrl || project.imageUrl;
-      project.liveLink = req.body.liveLink || project.liveLink;
-      project.githubLink = req.body.githubLink || project.githubLink;
+      project.link = req.body.link || project.link;
       project.highlights = req.body.highlights || project.highlights;
 
       const updatedProject = await project.save();
