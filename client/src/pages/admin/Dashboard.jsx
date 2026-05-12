@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../api';
+import api from '../../api';
 import { AuthContext } from '../../context/AuthContext';
 import ProjectManager from '../../components/admin/ProjectManager';
 
