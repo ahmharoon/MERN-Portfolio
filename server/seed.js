@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Project = require('./models/Project');
+const Experience = require('./models/Experience');
 const connectDB = require('./config/db');
 
 dotenv.config();
@@ -49,10 +50,28 @@ const dummyProjects = [
   }
 ];
 
+const dummyExperiences = [
+  {
+    company: 'Turing (USA Remote)',
+    role: 'LLM Trainer and AI Coach',
+    description: 'Stress-tested models like GPT and Gemini. Maintained 99%+ data quality across training sets.',
+    year: '09/25 - 01/26'
+  },
+  {
+    company: 'Skillsable (Australia Remote)',
+    role: 'Frontend Developer',
+    description: 'Developed responsive front-end implementations and optimized assets for faster load times.',
+    year: '05/24 - 06/24'
+  }
+];
+
 const seedData = async () => {
   try {
-    await Project.deleteMany(); // Clear existing projects to avoid duplicates if run multiple times
+    await Project.deleteMany();
+    await Experience.deleteMany();
+    
     await Project.insertMany(dummyProjects);
+    await Experience.insertMany(dummyExperiences);
     console.log('Projects Seeded Successfully!');
     process.exit();
   } catch (error) {

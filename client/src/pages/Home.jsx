@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard';
 
 const Home = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
+  const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -16,23 +17,21 @@ const Home = () => {
         console.error('Error fetching featured projects', error);
       }
     };
+
+    const fetchExperiences = async () => {
+      try {
+        const { data } = await api.get('/api/experiences');
+        setExperiences(data);
+      } catch (error) {
+        console.error('Error fetching experiences', error);
+      }
+    };
+
     fetchProjects();
+    fetchExperiences();
   }, []);
 
-  const experiences = [
-    {
-      company: 'Turing (USA Remote)',
-      role: 'LLM Trainer and AI Coach',
-      description: 'Stress-tested models like GPT and Gemini. Maintained 99%+ data quality across training sets.',
-      year: '2023 - Present'
-    },
-    {
-      company: 'Skillsable (Australia Remote)',
-      role: 'Frontend Developer',
-      description: 'Developed responsive front-end implementations and optimized assets for faster load times.',
-      year: '2022 - 2023'
-    }
-  ];
+
 
   const education = {
     school: 'UET Lahore',

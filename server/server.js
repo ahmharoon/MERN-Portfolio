@@ -17,6 +17,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const experienceRoutes = require('./routes/experienceRoutes');
 
 // Middleware
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/experiences', experienceRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

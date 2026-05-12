@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { AuthContext } from '../../context/AuthContext';
 import ProjectManager from '../../components/admin/ProjectManager';
+import ExperienceManager from '../../components/admin/ExperienceManager';
 
 const Dashboard = () => {
   const { adminInfo, logout } = useContext(AuthContext);
@@ -122,6 +123,9 @@ const Dashboard = () => {
         
         {/* Projects Management Component */}
         <ProjectManager token={adminInfo.token} />
+
+        {/* Experience Management Component */}
+        <ExperienceManager token={adminInfo.token} />
       </div>
     </div>
   );
