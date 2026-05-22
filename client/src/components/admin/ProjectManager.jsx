@@ -13,6 +13,7 @@ const ProjectManager = ({ token }) => {
     link: '',
     techStack: '',
     highlights: '',
+    priority: 0,
   });
 
   const config = {
@@ -50,6 +51,7 @@ const ProjectManager = ({ token }) => {
       ...project,
       techStack: project.techStack ? project.techStack.join(', ') : '',
       highlights: project.highlights ? project.highlights.join(', ') : '',
+      priority: project.priority !== undefined ? project.priority : 0,
     });
     setIsEditing(true);
   };
@@ -63,6 +65,7 @@ const ProjectManager = ({ token }) => {
       link: '',
       techStack: '',
       highlights: '',
+      priority: 0,
     });
     setIsEditing(true);
   };
@@ -165,7 +168,7 @@ const ProjectManager = ({ token }) => {
             <textarea rows="2" placeholder="Implemented X, Optimized Y" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.highlights} onChange={(e) => setCurrentProject({...currentProject, highlights: e.target.value})}></textarea>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">Image Upload (Cloudinary)</label>
               <input type="file" accept="image/*" onChange={uploadFileHandler} className="w-full bg-black border border-gray-700 rounded px-3 py-1.5 text-white focus:border-primary outline-none" />
@@ -175,6 +178,10 @@ const ProjectManager = ({ token }) => {
             <div>
               <label className="block text-sm text-gray-400 mb-1">Project Link</label>
               <input type="text" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.link} onChange={(e) => setCurrentProject({...currentProject, link: e.target.value})} />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Priority (Shown 1st, 2nd, etc.)</label>
+              <input type="number" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentProject.priority || 0} onChange={(e) => setCurrentProject({...currentProject, priority: parseInt(e.target.value) || 0})} />
             </div>
           </div>
 
@@ -188,6 +195,7 @@ const ProjectManager = ({ token }) => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-gray-800 text-gray-400">
+                <th className="py-3 px-4 font-semibold w-24">Priority</th>
                 <th className="py-3 px-4 font-semibold">Project Title</th>
                 <th className="py-3 px-4 font-semibold">Category</th>
                 <th className="py-3 px-4 font-semibold text-right">Actions</th>
@@ -196,11 +204,12 @@ const ProjectManager = ({ token }) => {
             <tbody>
               {projects.length === 0 ? (
                 <tr>
-                  <td colSpan="3" className="py-4 text-center text-gray-500">No projects found. Add one above!</td>
+                  <td colSpan="4" className="py-4 text-center text-gray-500">No projects found. Add one above!</td>
                 </tr>
               ) : (
                 projects.map((project) => (
                   <tr key={project._id} className="border-b border-gray-800 hover:bg-gray-900/50 transition-colors">
+                    <td className="py-3 px-4 text-gray-300">{project.priority || 0}</td>
                     <td className="py-3 px-4 font-medium text-white">{project.title}</td>
                     <td className="py-3 px-4 text-primary">{project.category || 'None'}</td>
                     <td className="py-3 px-4 text-right space-x-3">

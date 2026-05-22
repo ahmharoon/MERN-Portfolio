@@ -4,6 +4,18 @@ import { Link } from 'react-router-dom';
 import api from '../api';
 import ProjectCard from '../components/ProjectCard';
 
+const formatYear = (year, present) => {
+  if (!year) return '';
+  if (present) {
+    const lower = year.toLowerCase();
+    if (lower.endsWith('present')) {
+      return year;
+    }
+    return `${year} - Present`;
+  }
+  return year;
+};
+
 const Home = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [experiences, setExperiences] = useState([]);
@@ -120,7 +132,7 @@ const Home = () => {
               <div className="glass p-6 rounded-xl w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] ml-14 md:ml-0 hover:border-primary/50 transition-colors">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-bold text-xl text-primary">{exp.role}</h3>
-                  <span className="text-sm text-gray-400">{exp.year}</span>
+                  <span className="text-sm text-gray-400">{formatYear(exp.year, exp.present)}</span>
                 </div>
                 <h4 className="text-lg text-white mb-4">{exp.company}</h4>
                 <p className="text-gray-400 leading-relaxed">{exp.description}</p>

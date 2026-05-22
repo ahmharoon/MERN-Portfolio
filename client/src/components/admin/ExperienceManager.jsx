@@ -1,6 +1,18 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
 
+const formatYear = (year, present) => {
+  if (!year) return '';
+  if (present) {
+    const lower = year.toLowerCase();
+    if (lower.endsWith('present')) {
+      return year;
+    }
+    return `${year} - Present`;
+  }
+  return year;
+};
+
 const ExperienceManager = ({ token }) => {
   const [experiences, setExperiences] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -9,6 +21,7 @@ const ExperienceManager = ({ token }) => {
     role: '',
     description: '',
     year: '',
+    present: false,
   });
 
   const config = {
@@ -42,7 +55,10 @@ const ExperienceManager = ({ token }) => {
   };
 
   const handleEditClick = (experience) => {
-    setCurrentExperience(experience);
+    setCurrentExperience({
+      ...experience,
+      present: experience.present !== undefined ? experience.present : false,
+    });
     setIsEditing(true);
   };
 
@@ -52,6 +68,7 @@ const ExperienceManager = ({ token }) => {
       role: '',
       description: '',
       year: '',
+      present: false,
     });
     setIsEditing(true);
   };
@@ -106,10 +123,16 @@ const ExperienceManager = ({ token }) => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Duration / Year</label>
-              <input type="text" required placeholder="e.g. 05/24 - 06/24" className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentExperience.year} onChange={(e) => setCurrentExperience({...currentExperience, year: e.target.value})} />
+              <label className="block text-sm text-gray-400 mb-1">
+                {currentExperience.present ? 'Start Date / Year' : 'Duration / Year'}
+              </label>
+              <input type="text" required placeholder={currentExperience.present ? "e.g. 09/25" : "e.g. 05/24 - 06/24"} className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-white focus:border-primary outline-none" value={currentExperience.year} onChange={(e) => setCurrentExperience({...currentExperience, year: e.target.value})} />
+            </div>
+            <div className="flex items-center pt-5">
+              <input type="checkbox" id="presentCheckbox" className="w-4 h-4 text-primary bg-black border-gray-700 rounded focus:ring-primary focus:ring-2" checked={currentExperience.present || false} onChange={(e) => setCurrentExperience({...currentExperience, present: e.target.checked})} />
+              <label htmlFor="presentCheckbox" className="ml-2 text-sm text-gray-400 cursor-pointer select-none">Currently Work Here / Present</label>
             </div>
           </div>
 
@@ -144,7 +167,7 @@ const ExperienceManager = ({ token }) => {
                   <tr key={exp._id} className="border-b border-gray-800 hover:bg-gray-900/50 transition-colors">
                     <td className="py-3 px-4 font-medium text-white">{exp.company}</td>
                     <td className="py-3 px-4 text-primary">{exp.role}</td>
-                    <td className="py-3 px-4 text-gray-400">{exp.year}</td>
+                    <td className="py-3 px-4 text-gray-400">{formatYear(exp.year, exp.present)}</td>
                     <td className="py-3 px-4 text-right space-x-3">
                       <button onClick={() => handleEditClick(exp)} className="text-gray-400 hover:text-white transition-colors">Edit</button>
                       <button onClick={() => handleDelete(exp._id)} className="text-red-500 hover:text-red-400 transition-colors">Delete</button>
