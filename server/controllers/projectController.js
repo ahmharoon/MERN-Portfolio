@@ -6,6 +6,13 @@ const Project = require('../models/Project');
 const getProjects = async (req, res) => {
   try {
     const projects = await Project.find({});
+    // Sort projects: priority 1, 2, 3... first (where 0 or undefined is treated as lowest priority), then newest first
+    projects.sort((a, b) => {
+      const pA = a.priority === 0 || a.priority === undefined || a.priority === null ? 999999 : a.priority;
+      const pB = b.priority === 0 || b.priority === undefined || b.priority === null ? 999999 : b.priority;
+      if (pA !== pB) return pA - pB;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
     res.json(projects);
   } catch (error) {
     console.error('Error fetching projects:', error);
@@ -57,6 +64,7 @@ const updateProject = async (req, res) => {
       project.imageUrl = req.body.imageUrl || project.imageUrl;
       project.link = req.body.link || project.link;
       project.highlights = req.body.highlights || project.highlights;
+      project.priority = req.body.priority !== undefined ? req.body.priority : project.priority;
 
       const updatedProject = await project.save();
       res.json(updatedProject);

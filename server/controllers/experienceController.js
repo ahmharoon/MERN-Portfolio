@@ -6,6 +6,60 @@ const Experience = require('../models/Experience');
 const getExperiences = async (req, res) => {
   try {
     const experiences = await Experience.find({});
+    
+    // Sort experiences: latest at the top, oldest at the bottom
+    const parseDateString = (yearStr, isPresent) => {
+      if (isPresent) {
+        return { end: new Date(8640000000000000), start: new Date(0) }; // Infinite future
+      }
+      if (!yearStr) {
+        return { end: new Date(0), start: new Date(0) };
+      }
+
+      const parts = yearStr.split('-');
+      const startStr = parts[0].trim();
+      const endStr = parts[1] ? parts[1].trim() : '';
+
+      const parseMonthYear = (str) => {
+        if (!str) return null;
+        if (str.toLowerCase() === 'present') {
+          return new Date(8640000000000000);
+        }
+        const dateParts = str.split('/');
+        if (dateParts.length === 2) {
+          const month = parseInt(dateParts[0]) - 1;
+          let year = parseInt(dateParts[1]);
+          if (year < 100) year += 2000;
+          return new Date(year, month, 1);
+        }
+        const yr = parseInt(str);
+        if (!isNaN(yr)) {
+          return new Date(yr, 0, 1);
+        }
+        return null;
+      };
+
+      const start = parseMonthYear(startStr) || new Date(0);
+      let end;
+      if (endStr) {
+        end = parseMonthYear(endStr) || start;
+      } else {
+        end = start;
+      }
+
+      return { start, end };
+    };
+
+    experiences.sort((a, b) => {
+      const dateA = parseDateString(a.year, a.present);
+      const dateB = parseDateString(b.year, b.present);
+
+      if (dateB.end.getTime() !== dateA.end.getTime()) {
+        return dateB.end - dateA.end;
+      }
+      return dateB.start - dateA.start;
+    });
+
     res.json(experiences);
   } catch (error) {
     console.error('Error fetching experiences:', error);
@@ -54,6 +108,7 @@ const updateExperience = async (req, res) => {
       experience.role = req.body.role || experience.role;
       experience.description = req.body.description || experience.description;
       experience.year = req.body.year || experience.year;
+      experience.present = req.body.present !== undefined ? req.body.present : experience.present;
 
       const updatedExperience = await experience.save();
       res.json(updatedExperience);

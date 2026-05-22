@@ -18,6 +18,10 @@ const experienceSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    present: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
